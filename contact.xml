@@ -1,0 +1,24 @@
+<contacts>
+     <amis>
+     </amis>
+     <collegues>
+          <contact>
+               <nom>Claude Moulin</nom>
+               <mail>claude.moulin@utc.fr</mail>
+               <icone>/home/spec/workspace/java_projet/NF28TD/TD4/image6.jpg</icone>
+          </contact>
+          <contact>
+               <nom>Dominique</nom>
+               <mail>dominique.lenne@utc.fr</mail>
+               <icone>/home/spec/workspace/java_projet/NF28TD/TD4/image5.jpg</icone>
+          </contact>
+     </collegues>
+     <famille>
+     </famille>
+     <contact>
+          <nom>REN Hao</nom>
+          <mail>Julien19890118@gmail.com</mail>
+          <icone>/home/spec/workspace/java_projet/NF28TD/TD4/image6.jpg</icone>
+     </contact>
+</contacts>
+

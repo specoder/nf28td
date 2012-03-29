@@ -1,0 +1,20 @@
+<contacts>
+     <amis>
+     </amis>
+     <collegues>
+          <contact>
+               <nom>Claude Moulin</nom>
+               <mail>claude.moulin@utc.fr</mail>
+               <icone>C:/data/nf28_06/gui/images/image3.jpg</icone>
+          </contact>
+          <contact>
+               <nom>Dominique Lenne</nom>
+               <mail>dominique.lenne@utc.fr</mail>
+               <icone>C:/data/nf28_06/gui/images/image6.jpg</icone>
+          </contact>
+     </collegues>
+     <famille>
+     </famille>
+</contacts>
+
+
