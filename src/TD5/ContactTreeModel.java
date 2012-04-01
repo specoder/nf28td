@@ -10,6 +10,7 @@ public class ContactTreeModel extends DefaultTreeModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private String xmlText;
 
 	public ContactTreeModel (TreeNode node){
@@ -34,7 +35,7 @@ public class ContactTreeModel extends DefaultTreeModel{
 
 
 	public void processTree(DefaultMutableTreeNode node,int n){    //visit all the nodes of the tree in depth-first way
-		// int n is the indicator of depth
+		// n : the indicator of depth
 		// There are only two node types in the tree
 
 		Object tempObj = node.getUserObject();

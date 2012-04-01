@@ -5,7 +5,7 @@ public class Contact {
 	private String m_mail;
 	private String m_icon;
 	
-	public void setNom(String m_nom) {
+/*	public void setNom(String m_nom) {
 		this.m_nom = m_nom;
 	}
 
@@ -15,6 +15,12 @@ public class Contact {
 
 	public void setIcon(String m_icon) {
 		this.m_icon = m_icon;
+	}*/
+	
+	public  void setContact(String pNom, String pMail, String pIcon){
+		m_nom = pNom;
+		m_mail = pMail;
+		m_icon = pIcon;
 	}
 
 	public  Contact(String pNom, String pMail, String pIcon){

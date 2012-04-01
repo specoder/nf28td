@@ -18,27 +18,27 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 
 public class ContactEditPanel  extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField m_nomText; 
-	private JTextField m_emailText;
+	// Contact info
+	private JTextField m_nomText; // name 
+	private JTextField m_emailText; // email
+	
 	private String  m_iconUrl;
-
 	private JLabel m_iconLabel; 
-	private ImageIcon  m_icon;
+	private ImageIcon  m_icon; // image label
 
 	private JTree treeVue; // for refreshing JTree
 	private XmlTextPanel xmlTextPanel; // for refreshing Xml text
 
-	public void registreTreeVue(JTree treeVue) {
+	public void registerTreeVue(JTree treeVue) {
 		this.treeVue = treeVue;
 	}
 
-	public void registreXmlTextPanel(XmlTextPanel xmlPanel) {
+	public void registerXmlTextPanel(XmlTextPanel xmlPanel) {
 		this.xmlTextPanel = xmlPanel;
 	}
 
@@ -96,12 +96,6 @@ public class ContactEditPanel  extends JPanel{
 		JButton valideButton = new JButton("Valider");
 		valideButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		/*this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-		this.add(nomPanel);
-		this.add(emailPanel);
-		this.add(avatarPanel);
-		this.add(valideButton);*/
-
 		// GridBagLayout
 		setLayout(new GridBagLayout());		
 		GridBagConstraints c1 = new GridBagConstraints();
@@ -138,7 +132,7 @@ public class ContactEditPanel  extends JPanel{
 		c4.gridy = 3;
 		this.add(valideButton,c4);
 
-		// Listener
+		// Implement Listener
 
 		valideButton.addActionListener(new ActionListener() {
 
@@ -153,16 +147,12 @@ public class ContactEditPanel  extends JPanel{
 				}
 				Object nodeInfo = node.getUserObject(); 
 				if(nodeInfo instanceof Contact){
-
-					((Contact)nodeInfo).setNom(m_nomText.getText());
-					((Contact)nodeInfo).setMail(m_emailText.getText());
-					((Contact)nodeInfo).setIcon(m_iconUrl);
-
+					((Contact)nodeInfo).setContact(m_nomText.getText(),m_emailText.getText(), m_iconUrl);
 					
-					treeVue.updateUI();
+					treeVue.updateUI(); // update the JTree View without closing the tree
 					xmlTextPanel.setText(((ContactTreeModel) (treeVue.getModel())).toXml());  // refresh XML text
 					((JTabbedPane )(xmlTextPanel.getParent())).setSelectedIndex(0);
-					// switch to xmlTextPanel
+					// switch to xmlTextPanel to notify the update
 				}
 				else{
 					// disable valid

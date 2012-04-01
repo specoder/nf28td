@@ -50,15 +50,23 @@ public class AppWindow extends JFrame {
 
 		JSplitPane splitPane;
 
+		// XML Text Panel
 		final XmlTextPanel xmlPanel = new XmlTextPanel();
+		
+		// Contact Edit Panel
 		final ContactEditPanel contactPanel = new ContactEditPanel();
+		
+		// Tree Panel
 		treePanel = new ContactTreePanel();
-		contactPanel.registreXmlTextPanel(xmlPanel); 
-		contactPanel.registreTreeVue(treePanel.getContactTree());
+		contactPanel.registerXmlTextPanel(xmlPanel);  // register the xml panel in the Contact Edit Panel 
+		contactPanel.registerTreeVue(treePanel.getContactTree()); // register the JTree in the Contact Edit Panel
 
+		// tabs container for XML Text Panel & Tree Panel
 		ongletPanel = new JTabbedPane();
 		ongletPanel.setPreferredSize(new Dimension(400,300));
 
+		
+		// Implement menu
 		fileMenuBar.add(fileMenu);
 		fileMenu.add(fileOpenItem);
 		fileMenu.add(fileSaveItem);
@@ -73,12 +81,14 @@ public class AppWindow extends JFrame {
 		editMenu.add(addContactItem);
 		editMenu.add(checkXmlItem);
 
+		// Implement split pane
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane.setLeftComponent(treePanel);
 		splitPane.setRightComponent(ongletPanel);
 		splitPane.setContinuousLayout(true);
 		this.getContentPane().add(splitPane);
 
+		// adjust Layout
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
@@ -89,6 +99,7 @@ public class AppWindow extends JFrame {
 
 		treePanel.addTreeSelLsn(ongletPanel);
 
+		// save file
 		fileSaveItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,6 +118,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 
+		// exit app
 		quitItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,6 +127,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 
+		// add conntact
 		addContactItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -139,6 +152,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 
+		// check the XML text
 		checkXmlItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -148,6 +162,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 
+		// open file
 		fileOpenItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -208,6 +223,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 		
+		// save file as
 		saveAsItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
