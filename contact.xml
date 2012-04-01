@@ -3,9 +3,9 @@
      </amis>
      <collegues>
           <contact>
-               <nom>Claude Moulin</nom>
+               <nom>Claude</nom>
                <mail>claude.moulin@utc.fr</mail>
-               <icone>/home/spec/workspace/java_projet/NF28TD/TD4/image6.jpg</icone>
+               <icone>/home/spec/workspace/java_projet/NF28/image6.jpg</icone>
           </contact>
           <contact>
                <nom>Dominique</nom>

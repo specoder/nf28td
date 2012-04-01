@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;	
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileFilter;
@@ -157,20 +158,16 @@ public class ContactEditPanel  extends JPanel{
 					((Contact)nodeInfo).setMail(m_emailText.getText());
 					((Contact)nodeInfo).setIcon(m_iconUrl);
 
-					//Object r = treeVue.getModel().getRoot();
-					//((ContactTreeModel) treeVue.getModel()).setRoot((TreeNode) r);  // refresh Tree Model
-
-					System.out.println("------------------------------");
-					System.out.println(((ContactTreeModel) (treeVue.getModel())).toXml());
-					((DefaultTreeModel) treeVue.getModel()).reload();
+					
+					treeVue.updateUI();
 					xmlTextPanel.setText(((ContactTreeModel) (treeVue.getModel())).toXml());  // refresh XML text
-
-					// TODO switch to xmlTextPanel
+					((JTabbedPane )(xmlTextPanel.getParent())).setSelectedIndex(0);
+					// switch to xmlTextPanel
 				}
 				else{
+					// disable valid
 					System.out.println("No contact item is selected.");
 					return;
-					// TODO disable valid
 				}
 			}
 		});
