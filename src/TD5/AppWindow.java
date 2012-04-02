@@ -127,7 +127,7 @@ public class AppWindow extends JFrame {
 			}
 		});
 
-		// add conntact
+		// add contact
 		addContactItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -140,15 +140,10 @@ public class AppWindow extends JFrame {
 				if ( treeModel != null){
 					DefaultMutableTreeNode r = (DefaultMutableTreeNode) treeModel.getRoot();
 					r.add(tempNode);
-					treeModel.setRoot(r);
+					treePanel.getContactTree().updateUI();
+					// updateUI must be called from JTree, instead of treePanel,
+					// because it is the treeModel who is modified, not the model(if exist) of treePanel.
 				}
-				/*else{ 	// when no XML files are imported ---> not necessary
-					treeModel = new ContactTreeModel(tempNode);
-					treePanel.setContactTreeModel(treeModel) ;
-				}*/
-
-
-				// The notification will be emitted only when one of the Model's setters is called;
 			}
 		});
 

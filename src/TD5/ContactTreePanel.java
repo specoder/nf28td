@@ -15,14 +15,28 @@ public class ContactTreePanel extends JPanel{
 	/**
 	 * 
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
-	private JTree m_contactTree;
+	public static JTree m_contactTree; 
+	
+	/*
+	 * the only JTree for different object ContactTreePanel
+	 * will be refreshed by new model when opening a new file.
+	 * So the m_contactTree can be static, but JTreeModel can not.
+	 */
 
 	public JTree getContactTree() {
 		return m_contactTree;
 	}
-	
+
+	public void clearSelection(){
+		m_contactTree.clearSelection();
+	}
+
+	public void setContactTreeModel(ContactTreeModel model){
+		m_contactTree.setModel(model);
+	}
+
 	public ContactTreePanel() {
 		//cttEditPanel = newPanel;
 		setLayout(new BorderLayout());
@@ -33,19 +47,21 @@ public class ContactTreePanel extends JPanel{
 
 		this.add(m_contactTree,BorderLayout.CENTER);
 	}
-	
-	
+
+
 	public void addTreeSelLsn(final JTabbedPane tabbedPane){
-		
+
 		m_contactTree.addTreeSelectionListener(new TreeSelectionListener() {
-			
+
 			public void valueChanged(TreeSelectionEvent e) {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode)m_contactTree.getLastSelectedPathComponent();
 				System.out.println("selection... = " + node);
-				
+
 				if (node == null) return; // very important!!!
+
 				/*
-				 * When adding a contact to the root "contacts", we should call the function setRoot(...),
+				 * When adding a contact to the root "contacts", we could call the function setRoot(...) 
+				 * (not necessarily, because of JTree.updateUI()),
 				 * and then, it will notify the view to refresh (clear all the selection), 
 				 * meanwhile, the listener's member function will also be called, it will try to get the
 				 * item which is selected, but meanwhile, we have nothing selected.
@@ -54,16 +70,14 @@ public class ContactTreePanel extends JPanel{
 				 * To simplify, the function can be called in many cases. What we need is to check if we have
 				 * something selected in the tree, if not, we do nothing.
 				 */
-			
+
 				Object nodeInfo = node.getUserObject(); 
 				ContactEditPanel tabEdit = (ContactEditPanel) (tabbedPane.getComponentAt(1));
-				
+
 				if(nodeInfo instanceof Contact){
-					
-					//cttEditPanel.registreTreeVue(m_contactTree); // Only when a Contact is selected, the JTree can be refreshed
-					// by valid button (the contactEditPanel needs the JTree) 
+
 					Contact person = (Contact) nodeInfo;
-					
+
 					tabEdit.setVisible(true);
 					tabEdit.setNomText(person.getNom());	
 					tabEdit.setEmailText(person.getMail());
@@ -71,22 +85,13 @@ public class ContactTreePanel extends JPanel{
 					tabbedPane.setSelectedIndex(1);
 				}
 				if(nodeInfo instanceof String){
-					//cttEditPanel.registreTreeVue(null);
-					tabEdit.clear();
-//					tabEdit.setVisible(false);
+					//tabEdit.clear();
 					tabbedPane.setSelectedIndex(0);
-					tabEdit.setEnabled(false);
 				}
 			}
 		});
 	}
-	
-	public void clearSelection(){
-		m_contactTree.clearSelection();
-	}
-	
-	public void setContactTreeModel(ContactTreeModel model){
-		m_contactTree.setModel(model);
-	}
+
+
 
 }
