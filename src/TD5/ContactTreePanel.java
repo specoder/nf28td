@@ -17,7 +17,7 @@ public class ContactTreePanel extends JPanel{
 	 */
 
 	private static final long serialVersionUID = 1L;
-	public static JTree m_contactTree; 
+	public static JTree m_contactTree = new JTree(); 
 	
 	/*
 	 * the only JTree for different object ContactTreePanel
@@ -40,7 +40,8 @@ public class ContactTreePanel extends JPanel{
 	public ContactTreePanel() {
 		//cttEditPanel = newPanel;
 		setLayout(new BorderLayout());
-		m_contactTree = new JTree();
+		m_contactTree.setDragEnabled(true); // enable drag
+		m_contactTree.setTransferHandler(new TreeTransferHandler());
 		m_contactTree.setModel(null);
 		m_contactTree.setPreferredSize(new Dimension(200,300));
 		m_contactTree.setBorder(BorderFactory.createTitledBorder("Contacts"));

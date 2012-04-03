@@ -12,21 +12,25 @@ public class NodeTransferable implements Transferable{
 
 	protected static final DataFlavor nodeFlavor = new DataFlavor(
 			DataFlavor.javaJVMLocalObjectMimeType,"ContactNode");
-
+	
+	Transferable source;
+	Transferable destination;
+	
 	public NodeTransferable(DefaultMutableTreeNode node){
-		/****/
+		??
 	}
 
 	public static DataFlavor getNodeFlavor () {
 		return nodeFlavor;}
 
-
 	@Override
 	public Object getTransferData(DataFlavor arg0)
 			throws UnsupportedFlavorException, IOException {
 		// TODO Auto-generated method stub
-		if (arg0 == nodeFlavor)
+		
+		if (arg0 == nodeFlavor){
 			return nodeFlavor;
+		}
 		return null;
 	}
 

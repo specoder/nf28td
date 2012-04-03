@@ -5,6 +5,8 @@ public class Contact {
 	private String m_mail;
 	private String m_icon;
 	
+	
+	
 /*	public void setNom(String m_nom) {
 		this.m_nom = m_nom;
 	}

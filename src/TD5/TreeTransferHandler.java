@@ -13,30 +13,31 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-public class DerivedTransferHandler extends TransferHandler{
+public class TreeTransferHandler extends TransferHandler implements Transferable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected static final DataFlavor nodeFlavor = new DataFlavor(
-			DataFlavor.javaJVMLocalObjectMimeType,"ContactNode");
-
+	public TreeTransferHandler(){
+		??
+	}
+	
 	public static DataFlavor getNodeFlavor () {
-		return nodeFlavor;}
+		return NodeTransferable.nodeFlavor;}
 
 	public Object getTransferData(DataFlavor arg0)
 			throws UnsupportedFlavorException, IOException {
 		// TODO Auto-generated method stub
-		if (arg0 == nodeFlavor)
-			return nodeFlavor;
+		if (arg0 == NodeTransferable.nodeFlavor)
+			return NodeTransferable.nodeFlavor;
 		return null;
 	}
 
 	public DataFlavor[] getTransferDataFlavors() {
 		// TODO Auto-generated method stub
-		DataFlavor[] result = {nodeFlavor};
+		DataFlavor[] result = {NodeTransferable.nodeFlavor};
 		return result;
 	}
 
@@ -45,20 +46,36 @@ public class DerivedTransferHandler extends TransferHandler{
 		return Arrays.asList(getTransferDataFlavors()).contains(arg0);
 	}
 
+	// JComponent c is the drag source
+
 	public int getSourceActions(JComponent c){
 		return MOVE; // javax.swing.TransferHandler.MOVE = 2 [0x2]
 	}
 
+	
 	public Transferable createTransferable(JComponent c){
 		DefaultMutableTreeNode node = 
 				(DefaultMutableTreeNode)ContactTreePanel.m_contactTree.getLastSelectedPathComponent();
-		return new NodeTransferable(node);
+		return (Transferable) new NodeTransferable(node);
+	}
+
+	public boolean canImport(TransferHandler.TransferSupport support){
+		if(!support.isDrop()) 
+			return false;
+
+		if(!support.getTransferable().isDataFlavorSupported(NodeTransferable.nodeFlavor))
+			return false;
+
+		return true;
 	}
 
 	public boolean importData(TransferSupport support) {
 		if (canImport(support)) {
 			try {
 				Transferable t = support.getTransferable();
+				
+				System.out.println(t.getTransferData(NodeTransferable.nodeFlavor));
+				
 				DefaultMutableTreeNode dmt = (DefaultMutableTreeNode)
 						t.getTransferData(NodeTransferable.nodeFlavor);
 				JTree.DropLocation dl = (JTree.DropLocation) support.getDropLocation();

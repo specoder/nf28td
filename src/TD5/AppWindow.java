@@ -35,7 +35,7 @@ public class AppWindow extends JFrame {
 
 	public AppWindow() {
 		final AppWindow thisOne = this;
-
+		this.setLocation(300, 300);
 		JMenuBar fileMenuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("Fichier");
 
@@ -67,6 +67,7 @@ public class AppWindow extends JFrame {
 
 		
 		// Implement menu
+		setJMenuBar(fileMenuBar);
 		fileMenuBar.add(fileMenu);
 		fileMenu.add(fileOpenItem);
 		fileMenu.add(fileSaveItem);
@@ -92,8 +93,6 @@ public class AppWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-
-		setJMenuBar(fileMenuBar);
 
 		// Implement listeners:
 
