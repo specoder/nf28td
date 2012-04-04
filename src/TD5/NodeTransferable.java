@@ -37,8 +37,6 @@ public class NodeTransferable implements Transferable{
 
 		if (arg0 == nodeFlavor){
 			return node;
-		}
-		return null;
 	}
 
 	@Override
@@ -53,6 +51,4 @@ public class NodeTransferable implements Transferable{
 		// TODO Auto-generated method stub
 		return Arrays.asList(getTransferDataFlavors()).contains(arg0);
 	}
-
-
 }
