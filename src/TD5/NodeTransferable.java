@@ -35,8 +35,9 @@ public class NodeTransferable implements Transferable{
 			throws UnsupportedFlavorException, IOException {
 		// TODO Auto-generated method stub
 
-		if (arg0 == nodeFlavor){
+		if (arg0 == nodeFlavor)
 			return node;
+		return null;
 	}
 
 	@Override
