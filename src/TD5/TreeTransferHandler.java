@@ -58,6 +58,7 @@ public class TreeTransferHandler extends TransferHandler {
 				parent.add(dmt);
 				tm.reload();
 				tree.expandPath(tp);
+				XmlTextPanel.textArea.setText(((ContactTreeModel)tree.getModel()).toXml());
 				return true;
 			}
 			catch(Exception ex) {ex.printStackTrace();}

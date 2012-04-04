@@ -51,7 +51,6 @@ public class ContactHandler extends DefaultHandler {
 				break;
 			}
 		}
-
 	}
 
 	public void startElement(String uri,String localName,String qName,Attributes attr){   // attribute is something in the tag.
@@ -66,14 +65,11 @@ public class ContactHandler extends DefaultHandler {
 			currentNode.add(tempNode);
 			currentNode = tempNode;   // go down
 		}
-		
 	}  
 
 	public void endElement(String uri,String localName,String qName){  
 		if ( localName != "nom" && localName != "mail" && localName != "icone" && localName != "contact" ){
 			currentNode = (DefaultMutableTreeNode) currentNode.getParent();  // go up
 		}
-		
 	}  
-
 }

@@ -13,7 +13,7 @@ public class XmlTextPanel extends JPanel{
 	 */
 	
 	private static final long serialVersionUID = 1L;
-	private JTextArea textArea;
+	public static JTextArea textArea;
 	
 	public XmlTextPanel() {
 		setLayout(new BorderLayout());
