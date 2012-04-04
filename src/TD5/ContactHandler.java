@@ -67,11 +67,9 @@ public class ContactHandler extends DefaultHandler {
 			currentNode = tempNode;   // go down
 		}
 		
-		//System.out.println("<"+localName+">");  
 	}  
 
 	public void endElement(String uri,String localName,String qName){  
-		//System.out.println("</"+localName+">");
 		if ( localName != "nom" && localName != "mail" && localName != "icone" && localName != "contact" ){
 			currentNode = (DefaultMutableTreeNode) currentNode.getParent();  // go up
 		}

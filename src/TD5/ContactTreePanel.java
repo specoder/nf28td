@@ -1,7 +1,6 @@
 package TD5;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -17,7 +16,7 @@ public class ContactTreePanel extends JPanel{
 	 */
 
 	private static final long serialVersionUID = 1L;
-	public static JTree m_contactTree = new JTree(); 
+	public static final JTree m_contactTree = new JTree(); 
 	
 	/*
 	 * the only JTree for different object ContactTreePanel

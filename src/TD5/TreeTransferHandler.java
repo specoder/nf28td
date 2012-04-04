@@ -45,9 +45,6 @@ public class TreeTransferHandler extends TransferHandler {
 		if (canImport(support)) {
 			try {
 				Transferable t = support.getTransferable();
-				
-				System.out.println(t.getTransferData(NodeTransferable.nodeFlavor));
-				
 				DefaultMutableTreeNode dmt = (DefaultMutableTreeNode)
 						t.getTransferData(NodeTransferable.nodeFlavor);
 				JTree.DropLocation dl = (JTree.DropLocation) support.getDropLocation();
