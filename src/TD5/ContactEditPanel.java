@@ -70,6 +70,8 @@ public class ContactEditPanel  extends JPanel{
 		JLabel nomLabel = new JLabel ("Nom :");
 		nomLabel.setPreferredSize(new Dimension(70,25));
 		m_nomText = new JTextField();
+		m_nomText.setDragEnabled(true);
+		m_nomText.setTransferHandler(new TreeTransferHandler());
 		m_nomText.setPreferredSize(new Dimension(300,25));
 		nomPanel.add(nomLabel);
 		nomPanel.add(m_nomText);

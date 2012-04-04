@@ -135,11 +135,13 @@ public class AppWindow extends JFrame {
 				Contact ctt = new Contact("Nouveau Contact","Nouveau Email","");
 				DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode();
 				tempNode.setUserObject(ctt);
-
+				
 				if ( treeModel != null){
 					DefaultMutableTreeNode r = (DefaultMutableTreeNode) treeModel.getRoot();
 					r.add(tempNode);
-					treePanel.getContactTree().updateUI();
+					xmlPanel.setText(treeModel.toXml());
+					ContactTreePanel.m_contactTree.updateUI();
+					treePanel.selectLastRow();
 					// updateUI must be called from JTree, instead of treePanel,
 					// because it is the treeModel who is modified, not the model(if exist) of treePanel.
 				}
@@ -195,7 +197,7 @@ public class AppWindow extends JFrame {
 						contactFile = tempFile.getPath();
 						thisOne.setTitle(tempFile.getName());
 						treeModel = ContactFacility.parse(dirFileChooser.getSelectedFile().getPath());
-						treePanel.setContactTreeModel( treeModel ) ;
+						treePanel.setContactTreeModel( treeModel ) ; //update model
 						textXML = treeModel.toXml();
 						xmlPanel.setText(textXML);
 
@@ -254,7 +256,6 @@ public class AppWindow extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
 				}
 				else if(value == JFileChooser.CANCEL_OPTION){
 					//Cancel

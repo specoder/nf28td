@@ -13,8 +13,8 @@ public class NodeTransferable implements Transferable{
 	protected static final DataFlavor nodeFlavor = new DataFlavor(
 			DataFlavor.javaJVMLocalObjectMimeType,"ContactNode");
 
-	private DefaultMutableTreeNode node; 
-
+	private DefaultMutableTreeNode node;
+	 
 	public DefaultMutableTreeNode getNode() {
 		return node;
 	}
@@ -22,14 +22,29 @@ public class NodeTransferable implements Transferable{
 	public void setNode(DefaultMutableTreeNode contactNode) {
 		this.node = contactNode;
 	}
+	
+	private String text;
+	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	public NodeTransferable(DefaultMutableTreeNode node){
 		setNode(node); 
 	}
 
-	public static DataFlavor getNodeFlavor () {
-		return nodeFlavor;}
+	public NodeTransferable(String txt){
+		setText(txt); 
+	}
 
+	/*	public static DataFlavor getNodeFlavor () {
+		return nodeFlavor;}
+	 */
+	
 	@Override
 	public Object getTransferData(DataFlavor arg0)
 			throws UnsupportedFlavorException, IOException {
@@ -37,13 +52,15 @@ public class NodeTransferable implements Transferable{
 
 		if (arg0 == nodeFlavor)
 			return node;
+		if (arg0 == DataFlavor.stringFlavor)
+			return text;
 		return null;
 	}
 
 	@Override
 	public DataFlavor[] getTransferDataFlavors() {
 		// TODO Auto-generated method stub
-		DataFlavor[] result = {nodeFlavor};
+		DataFlavor[] result = {nodeFlavor,DataFlavor.stringFlavor};
 		return result;
 	}
 
@@ -52,4 +69,8 @@ public class NodeTransferable implements Transferable{
 		// TODO Auto-generated method stub
 		return Arrays.asList(getTransferDataFlavors()).contains(arg0);
 	}
+
+	
+
+
 }

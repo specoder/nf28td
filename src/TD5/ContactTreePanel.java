@@ -8,6 +8,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 public class ContactTreePanel extends JPanel{
 
@@ -23,7 +24,14 @@ public class ContactTreePanel extends JPanel{
 	 * will be refreshed by new model when opening a new file.
 	 * So the m_contactTree can be static, but JTreeModel can not.
 	 */
+	
+	
 
+	public void selectLastRow() {
+		TreePath path = (TreePath) m_contactTree.getPathForRow(m_contactTree.getRowCount()-1);
+		m_contactTree.setSelectionPath(path);
+	}
+	
 	public JTree getContactTree() {
 		return m_contactTree;
 	}
@@ -85,7 +93,7 @@ public class ContactTreePanel extends JPanel{
 					tabbedPane.setSelectedIndex(1);
 				}
 				if(nodeInfo instanceof String){
-					//tabEdit.clear();
+					tabEdit.clear(); // when clicking the Contact tab, nothing shows
 					tabbedPane.setSelectedIndex(0);
 				}
 			}
