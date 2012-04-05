@@ -29,6 +29,7 @@ public class FileTransferHandler extends TransferHandler {
 	public boolean importData(TransferSupport support) {
 		Transferable tr = support.getTransferable();
 		try {
+			
 			System.out.println("import3");
 			System.out.println(tr.isDataFlavorSupported(DataFlavor.javaFileListFlavor));
 			//tr.getTransferData(DataFlavor.javaFileListFlavor);
