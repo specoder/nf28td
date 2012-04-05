@@ -64,7 +64,7 @@ public class ContactEditPanel  extends JPanel{
 	}
 
 	public ContactEditPanel() {
-
+		this.setTransferHandler(new FileTransferHandler());
 		// name panel
 		JPanel nomPanel = new JPanel();
 		JLabel nomLabel = new JLabel ("Nom :");

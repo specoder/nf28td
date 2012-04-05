@@ -33,9 +33,14 @@ public class AppWindow extends JFrame {
 	private String textXML;
 	private String contactFile;
 
+	public void init(){
+	}
 	public AppWindow() {
 		final AppWindow thisOne = this;
 		this.setLocation(300, 300);
+		
+		this.setTransferHandler(new FileTransferHandler()); // enable drog
+		
 		JMenuBar fileMenuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("Fichier");
 

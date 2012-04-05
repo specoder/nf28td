@@ -10,7 +10,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-public class ContactTreePanel extends JPanel{
+public class ContactTreePanel extends JPanel {
 
 	/**
 	 * 

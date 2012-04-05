@@ -16,8 +16,13 @@ public class TreeTransferHandler extends TransferHandler {
 	 */
 	private static final long serialVersionUID = 1L;
 
+
+	
 	public TreeTransferHandler(){	
+		
 	}
+	
+	
 
 	// JComponent c is the drag source
 
@@ -51,6 +56,7 @@ public class TreeTransferHandler extends TransferHandler {
 	}
 
 	public boolean importData(TransferSupport support) {
+		
 		if (canImport(support)) {
 			try {
 				Transferable t = support.getTransferable();
