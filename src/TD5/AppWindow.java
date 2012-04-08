@@ -69,7 +69,7 @@ public class AppWindow extends JFrame {
 	}
 
 	public AppWindow() {
-		System.out.println("hello world");
+		
 		this.setLocation(300, 300);
 
 		this.setTransferHandler(new FileTransferHandler()); // enable drag
