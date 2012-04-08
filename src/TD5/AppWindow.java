@@ -27,6 +27,8 @@ public class AppWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	System.out.println("hello world!");
+
 	public static AppWindow m_instance;
 
 	private ContactTreePanel treePanel;
