@@ -29,7 +29,7 @@ public class AppWindow extends JFrame {
 	
 	public static AppWindow m_instance;
 	
-	
+	System.out.println("hello world");
 	
 	private ContactTreePanel treePanel;
 	private JTabbedPane ongletPanel;
