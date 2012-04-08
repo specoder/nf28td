@@ -53,7 +53,7 @@ public class AppWindow extends JFrame {
 		ongletPanel.addTab("Contact", contactPanel);
 
 		fileSaveItem.setEnabled(true);
-		saveAsItem.setEnabled(true);
+		 saveAsItem.setEnabled(true);
 
 		addContactItem.setEnabled(true);
 		checkXmlItem.setEnabled(true);
