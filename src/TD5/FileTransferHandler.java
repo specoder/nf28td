@@ -5,7 +5,6 @@ import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
 public class FileTransferHandler extends TransferHandler {
@@ -15,33 +14,34 @@ public class FileTransferHandler extends TransferHandler {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/*public FileTransferHandler(){	
-	}*/
+	public boolean canImport(TransferHandler.TransferSupport support){
+		if(!support.isDrop()) 
+			return false;
 
-
-	
-	public boolean canImport(TransferSupport support) {
-
-		System.out.println("import1");
+		if(!support.getTransferable().isDataFlavorSupported(DataFlavor.javaFileListFlavor))
+			return false;
+		
 		return true;
 	}
 
 	public boolean importData(TransferSupport support) {
 		Transferable tr = support.getTransferable();
-		try {
-			
-			System.out.println("import3");
-			System.out.println(tr.isDataFlavorSupported(DataFlavor.javaFileListFlavor));
-			//tr.getTransferData(DataFlavor.javaFileListFlavor);
-			DataFlavor [] df = tr.getTransferDataFlavors();
-			
-			for (int i = 0; i < df.length; i++) {
-				System.out.println(df[i]);
+
+		if(tr.isDataFlavorSupported(DataFlavor.javaFileListFlavor)){
+			try {
+				File f = null;
+				@SuppressWarnings("unchecked")
+				List<File> fl = (List<File>) tr.getTransferData(DataFlavor.javaFileListFlavor);
+				for (int i = 0; i < fl.size(); i++) {
+					f = fl.get(i);
+				}
+				
+				AppWindow.m_instance.openFile(f);
+				
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}

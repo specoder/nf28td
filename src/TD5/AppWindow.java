@@ -26,6 +26,11 @@ public class AppWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public static AppWindow m_instance;
+	
+	
+	
 	private ContactTreePanel treePanel;
 	private JTabbedPane ongletPanel;
 
@@ -33,34 +38,62 @@ public class AppWindow extends JFrame {
 	private String textXML;
 	private String contactFile;
 
-	public void init(){
+	private JMenuItem fileSaveItem;
+	private JMenuItem saveAsItem;
+
+	private JMenuItem addContactItem;
+	private JMenuItem checkXmlItem;
+
+	// XML Text Panel
+	private XmlTextPanel xmlPanel;
+
+	// Contact Edit Panel
+	private ContactEditPanel contactPanel ;
+
+	public void openFile( File f ) throws FileNotFoundException, SAXException, IOException{
+		ongletPanel.addTab("XML", xmlPanel);
+		ongletPanel.addTab("Contact", contactPanel);
+
+		fileSaveItem.setEnabled(true);
+		saveAsItem.setEnabled(true);
+
+		addContactItem.setEnabled(true);
+		checkXmlItem.setEnabled(true);
+
+		contactFile = f.getPath();
+		this.setTitle(f.getName());
+		treeModel = ContactFacility.parse(f.getPath());
+		treePanel.setContactTreeModel( treeModel ) ; //update model
+		textXML = treeModel.toXml();
+		xmlPanel.setText(textXML);
+		
 	}
+		
 	public AppWindow() {
-		final AppWindow thisOne = this;
 		this.setLocation(300, 300);
-		
+
 		this.setTransferHandler(new FileTransferHandler()); // enable drog
-		
+
 		JMenuBar fileMenuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("Fichier");
 
 		JMenuItem fileOpenItem = new JMenuItem("Ouvir");
-		final JMenuItem fileSaveItem = new JMenuItem("Sauver");
-		final JMenuItem saveAsItem = new JMenuItem("Sauver sous");
+		fileSaveItem = new JMenuItem("Sauver");
+		saveAsItem = new JMenuItem("Sauver sous");
 		JMenuItem quitItem = new JMenuItem("Quitter");
 
 		JMenu editMenu = new JMenu("Editer");
-		final JMenuItem addContactItem = new JMenuItem("Ajouter Contact");
-		final JMenuItem checkXmlItem = new JMenuItem("Voir XML");
+		addContactItem = new JMenuItem("Ajouter Contact");
+		checkXmlItem = new JMenuItem("Voir XML");
 
 		JSplitPane splitPane;
 
 		// XML Text Panel
-		final XmlTextPanel xmlPanel = new XmlTextPanel();
-		
+		xmlPanel = new XmlTextPanel();
+
 		// Contact Edit Panel
-		final ContactEditPanel contactPanel = new ContactEditPanel();
-		
+		contactPanel = new ContactEditPanel();
+
 		// Tree Panel
 		treePanel = new ContactTreePanel();
 		contactPanel.registerXmlTextPanel(xmlPanel);  // register the xml panel in the Contact Edit Panel 
@@ -70,7 +103,7 @@ public class AppWindow extends JFrame {
 		ongletPanel = new JTabbedPane();
 		ongletPanel.setPreferredSize(new Dimension(400,300));
 
-		
+
 		// Implement menu
 		setJMenuBar(fileMenuBar);
 		fileMenuBar.add(fileMenu);
@@ -99,6 +132,9 @@ public class AppWindow extends JFrame {
 		this.pack();
 		this.setVisible(true);
 
+		// make this object accessible statically
+		m_instance = this;
+		
 		// Implement listeners:
 
 		treePanel.addTreeSelLsn(ongletPanel);
@@ -140,7 +176,7 @@ public class AppWindow extends JFrame {
 				Contact ctt = new Contact("Nouveau Contact","Nouveau Email","");
 				DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode();
 				tempNode.setUserObject(ctt);
-				
+
 				if ( treeModel != null){
 					DefaultMutableTreeNode r = (DefaultMutableTreeNode) treeModel.getRoot();
 					r.add(tempNode);
@@ -190,21 +226,12 @@ public class AppWindow extends JFrame {
 					//OK
 					System.out.println("OK");
 
-					ongletPanel.addTab("XML", xmlPanel);
-					ongletPanel.addTab("Contact", contactPanel);
-					fileSaveItem.setEnabled(true);
-					saveAsItem.setEnabled(true);
-					addContactItem.setEnabled(true);
-					checkXmlItem.setEnabled(true);
+
 
 					try {
+
 						File tempFile = dirFileChooser.getSelectedFile();
-						contactFile = tempFile.getPath();
-						thisOne.setTitle(tempFile.getName());
-						treeModel = ContactFacility.parse(dirFileChooser.getSelectedFile().getPath());
-						treePanel.setContactTreeModel( treeModel ) ; //update model
-						textXML = treeModel.toXml();
-						xmlPanel.setText(textXML);
+						openFile(tempFile);
 
 					} catch (FileNotFoundException e1) {
 						// TODO Auto-generated catch block
@@ -223,7 +250,7 @@ public class AppWindow extends JFrame {
 				}
 			}
 		});
-		
+
 		// save file as
 		saveAsItem.addActionListener(new ActionListener() {
 			@Override

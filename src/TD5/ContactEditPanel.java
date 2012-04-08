@@ -27,7 +27,7 @@ public class ContactEditPanel  extends JPanel{
 	private JTextField m_nomText; // name 
 	private JTextField m_emailText; // email
 	
-	private String  m_iconUrl;
+	private String m_iconUrl;
 	private JLabel m_iconLabel; 
 	private ImageIcon  m_icon; // image label
 
