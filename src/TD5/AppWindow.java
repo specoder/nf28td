@@ -26,8 +26,6 @@ public class AppWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	System.out.print;
 
 	public static AppWindow m_instance;
 
@@ -51,7 +49,7 @@ public class AppWindow extends JFrame {
 	private ContactEditPanel contactPanel;
 
 	public void openFile(File f) throws FileNotFoundException, SAXException,
-	IOException {
+			IOException {
 		ongletPanel.addTab("XML", xmlPanel);
 		ongletPanel.addTab("Contact", contactPanel);
 
@@ -71,6 +69,7 @@ public class AppWindow extends JFrame {
 	}
 
 	public AppWindow() {
+		System.out.println("hello world");
 		this.setLocation(300, 300);
 
 		this.setTransferHandler(new FileTransferHandler()); // enable drag
