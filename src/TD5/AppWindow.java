@@ -98,12 +98,8 @@ public class AppWindow extends JFrame {
 		contactPanel.registerXmlTextPanel(xmlPanel); // register the xml panel
 		// in the Contact Edit
 		// Panel
-		contactPanel.registerTreeVue(treePanel.getContactTree()); // register
-		// the JTree
-		// in the
-		// Contact
-		// Edit
-		// Panel
+		contactPanel.registerTreeVue(treePanel.getContactTree()); // register the JTree in the Contact Edit Panel
+		
 
 		// tabs container for XML Text Panel & Tree Panel
 		ongletPanel = new JTabbedPane();
