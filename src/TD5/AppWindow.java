@@ -26,7 +26,6 @@ public class AppWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	System.out.println("heqwrwre");
 	public static AppWindow m_instance;
 
 	private ContactTreePanel treePanel;
@@ -71,7 +70,7 @@ public class AppWindow extends JFrame {
 	public AppWindow() {
 
 		this.setLocation(300, 300);
-		
+		System.out.println("adfasdfasf");
 		this.setTransferHandler(new FileTransferHandler()); // enable drag
 
 		JMenuBar fileMenuBar = new JMenuBar();
