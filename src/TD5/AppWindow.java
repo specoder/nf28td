@@ -1,8 +1,8 @@
 package TD5;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,11 +26,9 @@ public class AppWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public static AppWindow m_instance;
-	
-	
-	
+
 	private ContactTreePanel treePanel;
 	private JTabbedPane ongletPanel;
 
@@ -48,9 +46,10 @@ public class AppWindow extends JFrame {
 	private XmlTextPanel xmlPanel;
 
 	// Contact Edit Panel
-	private ContactEditPanel contactPanel ;
+	private ContactEditPanel contactPanel;
 
-	public void openFile( File f ) throws FileNotFoundException, SAXException, IOException{
+	public void openFile(File f) throws FileNotFoundException, SAXException,
+	IOException {
 		ongletPanel.addTab("XML", xmlPanel);
 		ongletPanel.addTab("Contact", contactPanel);
 
@@ -63,16 +62,16 @@ public class AppWindow extends JFrame {
 		contactFile = f.getPath();
 		this.setTitle(f.getName());
 		treeModel = ContactFacility.parse(f.getPath());
-		treePanel.setContactTreeModel( treeModel ) ; //update model
+		treePanel.setContactTreeModel(treeModel); // update model
 		textXML = treeModel.toXml();
 		xmlPanel.setText(textXML);
-		
+
 	}
-		
+
 	public AppWindow() {
 		this.setLocation(300, 300);
 
-		this.setTransferHandler(new FileTransferHandler()); // enable drog
+		this.setTransferHandler(new FileTransferHandler()); // enable drag
 
 		JMenuBar fileMenuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("Fichier");
@@ -96,13 +95,19 @@ public class AppWindow extends JFrame {
 
 		// Tree Panel
 		treePanel = new ContactTreePanel();
-		contactPanel.registerXmlTextPanel(xmlPanel);  // register the xml panel in the Contact Edit Panel 
-		contactPanel.registerTreeVue(treePanel.getContactTree()); // register the JTree in the Contact Edit Panel
+		contactPanel.registerXmlTextPanel(xmlPanel); // register the xml panel
+		// in the Contact Edit
+		// Panel
+		contactPanel.registerTreeVue(treePanel.getContactTree()); // register
+		// the JTree
+		// in the
+		// Contact
+		// Edit
+		// Panel
 
 		// tabs container for XML Text Panel & Tree Panel
 		ongletPanel = new JTabbedPane();
-		ongletPanel.setPreferredSize(new Dimension(400,300));
-
+		ongletPanel.setPreferredSize(new Dimension(400, 300));
 
 		// Implement menu
 		setJMenuBar(fileMenuBar);
@@ -112,7 +117,7 @@ public class AppWindow extends JFrame {
 		fileMenu.add(saveAsItem);
 		fileMenu.add(quitItem);
 
-		fileMenuBar.add(editMenu );
+		fileMenuBar.add(editMenu);
 		fileSaveItem.setEnabled(false);
 		saveAsItem.setEnabled(false);
 		addContactItem.setEnabled(false);
@@ -134,7 +139,7 @@ public class AppWindow extends JFrame {
 
 		// make this object accessible statically
 		m_instance = this;
-		
+
 		// Implement listeners:
 
 		treePanel.addTreeSelLsn(ongletPanel);
@@ -144,10 +149,12 @@ public class AppWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(contactFile != null && textXML != null){
+				if (contactFile != null && textXML != null) {
 					try {
 						FileWriter fileWriter = new FileWriter(contactFile);
-						PrintWriter out = new PrintWriter(fileWriter,true); // true : autoFlush
+						PrintWriter out = new PrintWriter(fileWriter, true); // true
+						// :
+						// autoFlush
 						out.println(xmlPanel.getText());
 						out.close();
 					} catch (IOException e1) {
@@ -163,7 +170,7 @@ public class AppWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.exit(0); 
+				System.exit(0);
 			}
 		});
 
@@ -173,18 +180,21 @@ public class AppWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Contact ctt = new Contact("Nouveau Contact","Nouveau Email","");
+				Contact ctt = new Contact("Nouveau Contact", "Nouveau Email",
+						"");
 				DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode();
 				tempNode.setUserObject(ctt);
 
-				if ( treeModel != null){
-					DefaultMutableTreeNode r = (DefaultMutableTreeNode) treeModel.getRoot();
+				if (treeModel != null) {
+					DefaultMutableTreeNode r = (DefaultMutableTreeNode) treeModel
+							.getRoot();
 					r.add(tempNode);
 					xmlPanel.setText(treeModel.toXml());
 					ContactTreePanel.m_contactTree.updateUI();
 					treePanel.selectLastRow();
 					// updateUI must be called from JTree, instead of treePanel,
-					// because it is the treeModel who is modified, not the model(if exist) of treePanel.
+					// because it is the treeModel who is modified, not the
+					// model(if exist) of treePanel.
 				}
 			}
 		});
@@ -208,12 +218,14 @@ public class AppWindow extends JFrame {
 				JFileChooser dirFileChooser = new JFileChooser();
 				dirFileChooser.setCurrentDirectory(new File("."));
 				dirFileChooser.setDialogTitle("Import contact file...");
-				dirFileChooser.setFileFilter(new FileFilter(){
+				dirFileChooser.setFileFilter(new FileFilter() {
 					@Override
 					public boolean accept(File f) {
 						// TODO Auto-generated method stub
-						return f.getName().toLowerCase().endsWith(".xml") || f.isDirectory();
+						return f.getName().toLowerCase().endsWith(".xml")
+								|| f.isDirectory();
 					}
+
 					@Override
 					public String getDescription() {
 						// TODO Auto-generated method stub
@@ -222,11 +234,9 @@ public class AppWindow extends JFrame {
 				});
 
 				int value = dirFileChooser.showOpenDialog(null);
-				if( value == JFileChooser.APPROVE_OPTION ){
-					//OK
+				if (value == JFileChooser.APPROVE_OPTION) {
+					// OK
 					System.out.println("OK");
-
-
 
 					try {
 
@@ -243,9 +253,8 @@ public class AppWindow extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}
-				else if(value == JFileChooser.CANCEL_OPTION){
-					//Cancel
+				} else if (value == JFileChooser.CANCEL_OPTION) {
+					// Cancel
 					System.out.println("CANCLE");
 				}
 			}
@@ -260,12 +269,14 @@ public class AppWindow extends JFrame {
 				JFileChooser dirFileChooser = new JFileChooser();
 				dirFileChooser.setCurrentDirectory(new File("."));
 				dirFileChooser.setDialogTitle("Create contact file...");
-				dirFileChooser.setFileFilter(new FileFilter(){
+				dirFileChooser.setFileFilter(new FileFilter() {
 					@Override
 					public boolean accept(File f) {
 						// TODO Auto-generated method stub
-						return f.getName().toLowerCase().endsWith(".xml") || f.isDirectory();
+						return f.getName().toLowerCase().endsWith(".xml")
+								|| f.isDirectory();
 					}
+
 					@Override
 					public String getDescription() {
 						// TODO Auto-generated method stub
@@ -274,23 +285,25 @@ public class AppWindow extends JFrame {
 				});
 
 				int value = dirFileChooser.showSaveDialog(null);
-				if( value == JFileChooser.APPROVE_OPTION ){
-					//OK
+				if (value == JFileChooser.APPROVE_OPTION) {
+					// OK
 					System.out.println("OK");
 
 					FileWriter fileWriter;
 					try {
-						fileWriter = new FileWriter(dirFileChooser.getSelectedFile().getPath()+".xml");
-						PrintWriter out = new PrintWriter(fileWriter,true); // true : autoFlush
+						fileWriter = new FileWriter(dirFileChooser
+								.getSelectedFile().getPath() + ".xml");
+						PrintWriter out = new PrintWriter(fileWriter, true); // true
+						// :
+						// autoFlush
 						out.println(xmlPanel.getText());
 						out.close();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}
-				else if(value == JFileChooser.CANCEL_OPTION){
-					//Cancel
+				} else if (value == JFileChooser.CANCEL_OPTION) {
+					// Cancel
 					System.out.println("CANCLE");
 				}
 			}

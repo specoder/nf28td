@@ -39,6 +39,7 @@ public class FileTransferHandler extends TransferHandler {
 				AppWindow.m_instance.openFile(f);
 				
 				return true;
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
