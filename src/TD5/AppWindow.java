@@ -71,7 +71,7 @@ public class AppWindow extends JFrame {
 	public AppWindow() {
 
 		this.setLocation(300, 300);
-		System.out.println("hello");
+		
 		this.setTransferHandler(new FileTransferHandler()); // enable drag
 
 		JMenuBar fileMenuBar = new JMenuBar();
