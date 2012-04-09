@@ -15,6 +15,8 @@ public class FileTransferHandler extends TransferHandler {
 	private static final long serialVersionUID = 1L;
 
 	public boolean canImport(TransferHandler.TransferSupport support){
+		
+		
 		if(!support.isDrop()) 
 			return false;
 
