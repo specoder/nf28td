@@ -19,13 +19,9 @@ public class NodeTransferHandler extends TransferHandler {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-
 	public NodeTransferHandler(){	
 
 	}
-
-
 
 	// JComponent c is the drag source
 
@@ -77,11 +73,11 @@ public class NodeTransferHandler extends TransferHandler {
 				for (int i = 0; i < fl.size(); i++) {
 					f = fl.get(i);
 				}
-				
+
 				AppWindow.m_instance.openFile(f);
-				
+
 				return true;
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -90,32 +86,43 @@ public class NodeTransferHandler extends TransferHandler {
 		if (canImport(support)) {
 			try {
 				Transferable t = support.getTransferable();
-				JTree.DropLocation dl = (JTree.DropLocation) support.getDropLocation();
-				TreePath tp = dl.getPath();
-				if (tp == null) {return false;}
+				if (support.getDropLocation() instanceof JTree.DropLocation ){
+					JTree.DropLocation dl = (JTree.DropLocation) support.getDropLocation();
+					TreePath tp = dl.getPath();
 
-				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) tp.getLastPathComponent();
-				if (parent.getUserObject() instanceof Contact) {return false;}
+					if (tp == null) {return false;}
 
-				JTree tree = (JTree)support.getComponent();
-				DefaultMutableTreeNode dmt = null;
+					DefaultMutableTreeNode parent = (DefaultMutableTreeNode) tp.getLastPathComponent();
+					if (parent.getUserObject() instanceof Contact) {return false;}
 
-				if( t.getTransferData(NodeTransferable.nodeFlavor) instanceof DefaultMutableTreeNode){
-					dmt = (DefaultMutableTreeNode)t.getTransferData(NodeTransferable.nodeFlavor);
-					parent.add(dmt);
+					JTree tree = (JTree)support.getComponent();
+					DefaultMutableTreeNode dmt = null;
+
+					if( t.getTransferData(NodeTransferable.nodeFlavor) instanceof DefaultMutableTreeNode){
+						// node drop
+						dmt = (DefaultMutableTreeNode)t.getTransferData(NodeTransferable.nodeFlavor);
+						parent.add(dmt);
+					}
+					else{  // text drop
+						String txt = (String) t.getTransferData(DataFlavor.stringFlavor);
+						System.out.println("text = "+txt);
+						Contact ctt = new Contact(txt,"unknown","");
+						dmt = new DefaultMutableTreeNode();
+						dmt.setUserObject(ctt);
+						parent.add(dmt);
+					}
+
+					XmlTextPanel.textArea.setText(((ContactTreeModel)tree.getModel()).toXml());
+					tree.updateUI();
+					return true;
 				}
-				else{
-					String txt = (String) t.getTransferData(DataFlavor.stringFlavor);
-					System.out.println("text = "+txt);
-					Contact ctt = new Contact(txt,"unknown","");
-					dmt = new DefaultMutableTreeNode();
-					dmt.setUserObject(ctt);
-					parent.add(dmt);
+				else{  // drop node in another window
+					if( t.getTransferData(NodeTransferable.nodeFlavor) instanceof DefaultMutableTreeNode){
+						DefaultMutableTreeNode node = (DefaultMutableTreeNode)t.getTransferData(NodeTransferable.nodeFlavor);
+						Contact c = (Contact)node.getUserObject();
+						ContactProfileFrame.m_instance.setAll(c.getNom(), c.getMail(), c.getIconURL());
+					}
 				}
-
-				XmlTextPanel.textArea.setText(((ContactTreeModel)tree.getModel()).toXml());
-				tree.updateUI();
-				return true;
 			}
 			catch(Exception ex) {ex.printStackTrace();}
 		}

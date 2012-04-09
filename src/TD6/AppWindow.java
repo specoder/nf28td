@@ -46,7 +46,7 @@ public class AppWindow extends JFrame {
 
 	// Contact Edit Panel
 	private ContactEditPanel contactPanel;
-
+	
 	public void openFile(File f) throws FileNotFoundException, SAXException,
 			IOException {
 		ongletPanel.addTab("XML", xmlPanel);
@@ -68,6 +68,7 @@ public class AppWindow extends JFrame {
 	}
 
 	public AppWindow() {
+		
 		
 		this.setLocation(300, 300);
 		System.out.println("hello");
@@ -147,6 +148,7 @@ public class AppWindow extends JFrame {
 				// TODO Auto-generated method stub
 				if (contactFile != null && textXML != null) {
 					try {
+						System.out.println("contactFile = "+contactFile);
 						FileWriter fileWriter = new FileWriter(contactFile);
 						PrintWriter out = new PrintWriter(fileWriter, true); // true
 						// :

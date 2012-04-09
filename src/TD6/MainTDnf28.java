@@ -6,6 +6,7 @@ public class MainTDnf28 {
 	}
 	
 	public static void td3() {
+		new ContactProfileFrame();
 		new AppWindow();
 	}
 }
