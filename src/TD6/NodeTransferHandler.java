@@ -58,7 +58,6 @@ public class NodeTransferHandler extends TransferHandler {
 				&& support.getTransferable().isDataFlavorSupported(DataFlavor.stringFlavor)	)
 			return false;
 
-
 		return true;
 	}
 
